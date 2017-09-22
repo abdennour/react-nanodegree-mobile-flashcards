@@ -1,5 +1,5 @@
 import * as ActionTypes from './types';
-import { getDateString } from '../helpers';
+import { getDateString } from '../utils/helpers';
 
 export function addDeck(deck) {
   return { type: ActionTypes.ADD_DECK, deck };
