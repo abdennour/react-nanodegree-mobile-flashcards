@@ -20,29 +20,31 @@ class DecksList extends Component {
     this.dataSource = ds.cloneWithRows(this.props.decks);
   }
 
+  renderRow = (deck, sectionId) => {
+    const badge = {
+      value: deck.questions.length,
+      textStyle: { color: lightColor },
+      containerStyle: { backgroundColor: primaryColor }
+    };
+
+    return (
+      <ListItem
+        key={sectionId}
+        title={deck.name}
+        titleStyle={{ fontWeight: 'bold', color: darkColor }}
+        badge={badge}
+        onPress={() => this.props.navigation.navigate('DeckBoard', { deck })}
+      />
+    );
+  };
+
   render() {
     return (
       <List style={{ flex: 1, backgroundColor: lightColor }}>
-        <ListView renderRow={renderRow} dataSource={this.dataSource} />
+        <ListView renderRow={this.renderRow} dataSource={this.dataSource} />
       </List>
     );
   }
-}
-
-function renderRow(deck, sectionId) {
-  const badge = {
-    value: deck.questions.length,
-    textStyle: { color: lightColor },
-    containerStyle: { backgroundColor: primaryColor }
-  };
-  return (
-    <ListItem
-      key={sectionId}
-      title={deck.name}
-      titleStyle={{ fontWeight: 'bold', color: darkColor }}
-      badge={badge}
-    />
-  );
 }
 
 function mapStateToProps({ decks, questions }) {

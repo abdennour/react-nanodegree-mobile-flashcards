@@ -5,7 +5,10 @@ class DeckBoard extends Component {
   render() {
     return (
       <View>
-        <Text>I am DeckBoard screen</Text>
+        <Text>
+          I am DeckBoard screen :{' '}
+          {JSON.stringify(this.props.navigation.state.params)}
+        </Text>
       </View>
     );
   }
