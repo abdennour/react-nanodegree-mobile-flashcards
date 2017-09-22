@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { getWidth, getHeight } from '../utils/helpers';
 import { primaryColor, lightColor } from '../utils/colors';
+import { SCREENS } from '../utils/enums';
 
 class AddDeckButton extends Component {
   render() {
@@ -19,7 +20,7 @@ class AddDeckButton extends Component {
           type="entypo"
           color={primaryColor}
           containerStyle={{ borderRadius: Platform.OS === 'ios' ? 4 : 26 }}
-          onPress={() => console.log('AddDeckButton clicked')}
+          onPress={() => this.props.navigate(SCREENS.DECK_NEW)}
         />
       </View>
     );

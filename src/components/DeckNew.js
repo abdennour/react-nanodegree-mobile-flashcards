@@ -1,8 +1,13 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
 
 class DeckNew extends Component {
   render() {
-    return null;
+    return (
+      <View>
+        <Text>Form Adding Deck</Text>
+      </View>
+    );
   }
 }
 
