@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
 class DecksList extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Text>I am DecksList screen</Text>
+        <Text>
+          Decks are : {this.props.decks.join(', ')}
+        </Text>
         <TouchableOpacity
           onPress={() =>
             this.props.navigation.navigate('DeckBoard', { deck: 'maths' })}
@@ -16,4 +19,4 @@ class DecksList extends Component {
     );
   }
 }
-export default DecksList;
+export default connect(({ decks }) => ({ decks }))(DecksList);
