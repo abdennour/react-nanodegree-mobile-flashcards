@@ -4,25 +4,30 @@ import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from './src/store';
 import Home from './src/components/Home';
+import DeckNew from './src/components/DeckNew';
 import DeckBoard from './src/components/DeckBoard';
 import QuestionNew from './src/components/QuestionNew';
 import DeckQuiz from './src/components/DeckQuiz';
 import DeckScore from './src/components/DeckScore';
+import { SCREENS } from './src/utils/enums';
 
 const MainNavigator = StackNavigator({
-  Home: {
+  [SCREENS.HOME]: {
     screen: Home
   },
-  DeckBoard: {
+  [SCREENS.DECK_NEW]: {
+    screen: DeckNew
+  },
+  [SCREENS.DECK_BOARD]: {
     screen: DeckBoard
   },
-  QuestionNew: {
+  [SCREENS.QUESTION_NEW]: {
     screen: QuestionNew
   },
-  DeckQuiz: {
+  [SCREENS.DECK_QUIZ]: {
     screen: DeckQuiz
   },
-  DeckScore: {
+  [SCREENS.DECK_SCORE]: {
     screen: DeckScore
   }
 });
