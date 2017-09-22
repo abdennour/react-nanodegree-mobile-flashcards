@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
+import { Constants } from 'expo';
 import store from './src/store';
 import Home from './src/components/Home';
 import DeckNew from './src/components/DeckNew';
@@ -9,6 +10,7 @@ import DeckBoard from './src/components/DeckBoard';
 import QuestionNew from './src/components/QuestionNew';
 import DeckQuiz from './src/components/DeckQuiz';
 import DeckScore from './src/components/DeckScore';
+import { primaryColor } from './src/utils/colors';
 import { SCREENS } from './src/utils/enums';
 
 const MainNavigator = StackNavigator({
@@ -31,11 +33,24 @@ const MainNavigator = StackNavigator({
     screen: DeckScore
   }
 });
+
+function AppStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={primaryColor} {...props} />
+    </View>
+  );
+}
+
 class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <View style={styles.container}>
+          <AppStatusBar
+            backgroundColor={primaryColor}
+            barStyle="light-content"
+          />
           <MainNavigator />
         </View>
       </Provider>
