@@ -4,7 +4,6 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
 import { primaryColor, lightColor, darkColor } from '../utils/colors';
-import { filterByDeck } from '../utils/helpers';
 import { SCREENS } from '../utils/enums';
 
 class DecksList extends Component {
@@ -53,7 +52,7 @@ function mapStateToProps({ decks, questions }) {
   return {
     decks: decks.map(name => ({
       name,
-      questions: questions.filter(filterByDeck(name))
+      questions: questions.filter(question => question.deck === name)
     }))
   };
 }

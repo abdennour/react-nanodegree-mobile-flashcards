@@ -7,7 +7,7 @@ import {
   FormInput,
   FormValidationMessage
 } from 'react-native-elements';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, reset, untouch } from 'redux-form';
 import { addDeck } from '../actions';
 import { SCREENS } from '../utils/enums';
 
@@ -15,6 +15,8 @@ class DeckNew extends Component {
   handleSubmit = values => {
     this.props.addDeck(values.deck);
     this.props.navigation.navigate(SCREENS.HOME);
+    this.props.dispatch(reset('newDeck'));
+    this.props.dispatch(untouch('newDeck'));
   };
 
   renderInput = ({ input, meta: { touched, error }, ...rest }) => {
@@ -24,11 +26,9 @@ class DeckNew extends Component {
           {rest.label}
         </FormLabel>
         <FormInput onChangeText={input.onChange} {...input} />
-        {touched &&
-          error &&
-          <FormValidationMessage>
-            {error}
-          </FormValidationMessage>}
+        <FormValidationMessage>
+          {touched && error ? error : null}
+        </FormValidationMessage>
       </View>
     );
   };
@@ -54,7 +54,6 @@ function validate(values, ownProps) {
   else if (ownProps.decks.find(d => d === values.deck)) {
     errors.deck = `"${values.deck}" already exists! Add another`;
   }
-
   return errors;
 }
 
