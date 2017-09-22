@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import DecksList from './src/components/DecksList';
 import DeckBoard from './src/components/DeckBoard';

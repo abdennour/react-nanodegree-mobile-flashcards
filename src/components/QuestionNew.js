@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+
 class QuestionNew extends Component {
   render() {
     return (
