@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
 import { primaryColor, lightColor, darkColor } from '../utils/colors';
 import { filterByDeck } from '../utils/helpers';
+import { SCREENS } from '../utils/enums';
 
 class DecksList extends Component {
   static propTypes = {
@@ -34,7 +35,7 @@ class DecksList extends Component {
         title={deck.name}
         titleStyle={{ fontWeight: 'bold', color: darkColor }}
         badge={badge}
-        onPress={() => this.props.navigate('DeckBoard', { deck })}
+        onPress={() => this.props.navigate(SCREENS.DECK_BOARD, { deck })}
       />
     );
   };
