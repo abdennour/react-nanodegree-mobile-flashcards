@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { Provider } from 'react-redux';
+import store from './src/store';
 import DecksList from './src/components/DecksList';
 import DeckBoard from './src/components/DeckBoard';
 import QuestionNew from './src/components/QuestionNew';
@@ -27,9 +29,11 @@ const MainNavigator = StackNavigator({
 class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
