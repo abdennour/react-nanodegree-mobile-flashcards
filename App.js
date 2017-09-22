@@ -3,15 +3,15 @@ import { StyleSheet, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from './src/store';
-import DecksList from './src/components/DecksList';
+import Home from './src/components/Home';
 import DeckBoard from './src/components/DeckBoard';
 import QuestionNew from './src/components/QuestionNew';
 import DeckQuiz from './src/components/DeckQuiz';
 import DeckScore from './src/components/DeckScore';
 
 const MainNavigator = StackNavigator({
-  DecksList: {
-    screen: DecksList
+  Home: {
+    screen: Home
   },
   DeckBoard: {
     screen: DeckBoard
