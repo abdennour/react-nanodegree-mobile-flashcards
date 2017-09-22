@@ -9,3 +9,8 @@ export function getDateString(time = Date.now()) {
 export function isToday(date) {
   return getDateString(date) === getDateString();
 }
+
+export function filterByDeck(deck) {
+  return object =>
+    object.deck && object.deck.toLowerCase() === deck.toLowerCase();
+}
