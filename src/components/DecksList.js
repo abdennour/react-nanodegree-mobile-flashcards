@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
-import { primaryColor, lightColor } from '../utils/colors';
+import { primaryColor, lightColor, darkColor } from '../utils/colors';
 
 class DecksList extends Component {
   static propTypes = {
@@ -32,10 +32,17 @@ class DecksList extends Component {
 function renderRow(deck, sectionId) {
   const badge = {
     value: deck.questions.length,
-    textStyle: { color: primaryColor }
-    //  containerStyle: { marginTop: -20 }
+    textStyle: { color: lightColor },
+    containerStyle: { backgroundColor: primaryColor }
   };
-  return <ListItem key={sectionId} title={deck.name} badge={badge} />;
+  return (
+    <ListItem
+      key={sectionId}
+      title={deck.name}
+      titleStyle={{ fontWeight: 'bold', color: darkColor }}
+      badge={badge}
+    />
+  );
 }
 
 function mapStateToProps({ decks, questions }) {
