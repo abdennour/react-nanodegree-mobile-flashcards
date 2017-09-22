@@ -1,13 +1,34 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import DecksList from './src/components/DecksList';
+import DeckBoard from './src/components/DeckBoard';
+import QuestionNew from './src/components/QuestionNew';
+import DeckQuiz from './src/components/DeckQuiz';
+import DeckScore from './src/components/DeckScore';
 
-export default class App extends React.Component {
+const MainNavigator = StackNavigator({
+  DecksList: {
+    screen: DecksList
+  },
+  DeckBoard: {
+    screen: DeckBoard
+  },
+  QuestionNew: {
+    screen: QuestionNew
+  },
+  DeckQuiz: {
+    screen: DeckQuiz
+  },
+  DeckScore: {
+    screen: DeckScore
+  }
+});
+class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <MainNavigator />
       </View>
     );
   }
@@ -15,9 +36,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    flex: 1
+  }
 });
+export default App;
