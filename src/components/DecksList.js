@@ -34,7 +34,7 @@ class DecksList extends Component {
         title={deck.name}
         titleStyle={{ fontWeight: 'bold', color: darkColor }}
         badge={badge}
-        onPress={() => this.props.navigation.navigate('DeckBoard', { deck })}
+        onPress={() => this.props.navigate('DeckBoard', { deck })}
       />
     );
   };

@@ -5,10 +5,11 @@ import AddDeckButton from './AddDeckButton';
 
 class Home extends Component {
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={{ flex: 1 }}>
-        <DecksList />
-        <AddDeckButton />
+        <DecksList navigate={navigate} />
+        <AddDeckButton navigate={navigate} />
       </View>
     );
   }
