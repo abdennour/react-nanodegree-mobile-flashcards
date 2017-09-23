@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Text, Button } from 'react-native-elements';
 import {
@@ -32,6 +32,7 @@ class DeckBoard extends Component {
         <View style={{ flex: 2, alignSelf: 'stretch' }}>
           {this.props.questions.length > 0 &&
             <Button
+              Component={TouchableOpacity}
               icon={{
                 name: 'question-circle',
                 type: 'font-awesome',
@@ -58,6 +59,7 @@ class DeckBoard extends Component {
               start Quiz on "{deck}" deck.
             </Text>}
           <Button
+            Component={TouchableOpacity}
             icon={{ name: 'plus', type: 'entypo', size: 32 }}
             title="New Question"
             backgroundColor={primaryColor}
@@ -68,6 +70,7 @@ class DeckBoard extends Component {
         </View>
         <View style={{ flex: 1 }}>
           <Button
+            Component={TouchableOpacity}
             icon={{ name: 'exchange', type: 'font-awesome', size: 32 }}
             title="Switch Deck"
             backgroundColor={blackColor}

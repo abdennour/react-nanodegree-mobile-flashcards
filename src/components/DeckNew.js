@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import {
   Button,
@@ -56,6 +56,7 @@ class DeckNew extends Component {
           placeholder="Please enter a new deck name"
         />
         <Button
+          Component={TouchableOpacity}
           icon={{ name: 'plus', type: 'entypo' }}
           title="Add"
           backgroundColor={primaryColor}
