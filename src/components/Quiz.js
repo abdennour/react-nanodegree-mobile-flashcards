@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import Swiper from './Swiper'; // from 'react-native-xswiper';
 import Card from './Card';
-import { neutreLightColor } from '../utils/colors';
+import swipeCorrectImg from '../assets/images/swipe-correct.png';
+import swipeIncorrectImg from '../assets/images/swipe-incorrect.png';
+import { neutreLightColor, neutreColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
+  onSwipeLeft() {}
+
+  onSwipeRight() {}
   render() {
     const { deck, questions } = this.props.navigation.state.params;
     return (
@@ -30,12 +35,37 @@ class Quiz extends Component {
               </View>}
           />
         </View>
-        <View style={{ flex: 1 }}>
-          <Text>note how to swipe</Text>
-        </View>
+        <Notes />
       </View>
     );
   }
+}
+
+function Notes() {
+  return (
+    <View style={styles.notes}>
+      <View>
+        <Text style={styles.notesText}>If incorrect, swipe left</Text>
+        <View style={styles.notesImageContainer}>
+          <Image
+            source={swipeIncorrectImg}
+            resizeMode="contain"
+            style={styles.notesImage}
+          />
+        </View>
+      </View>
+      <View>
+        <Text style={styles.notesText}>If correct, swipe right</Text>
+        <View style={styles.notesImageContainer}>
+          <Image
+            source={swipeCorrectImg}
+            resizeMode="contain"
+            style={styles.notesImage}
+          />
+        </View>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -55,6 +85,27 @@ const styles = StyleSheet.create({
     backgroundColor: neutreLightColor,
     padding: 10,
     alignSelf: 'stretch'
+  },
+  notes: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignSelf: 'stretch',
+    padding: 20
+  },
+  notesText: {
+    color: neutreColor
+  },
+  notesImageContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(0,0,0,.6)'
+  },
+  notesImage: {
+    flex: 1,
+    width: null,
+    height: null
   }
 });
 export default withNavOptions(({ navigation }) => ({

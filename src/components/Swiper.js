@@ -48,6 +48,7 @@ class Swiper extends Component {
       duration: 250
     }).start(() => this.onSwipeComplete(direction));
   }
+
   panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true, // when put finger on the screen
     onPanResponderMove: (event, gesture) => {
