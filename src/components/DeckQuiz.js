@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
-import Deck from './Deck';
+import Swiper from 'react-native-xswiper';
+import Card from './Card';
 import { neutreLightColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
@@ -10,29 +11,19 @@ class DeckQuiz extends Component {
     const { deck, questions } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
+        <View style={styles.header}>
           <Text h1>
             {deck}
           </Text>
           <Text h5>
-            {questions.length} cards
+            {questions.length} more to complete
           </Text>
         </View>
         <View style={styles.cardsContainer}>
-          <Deck
+          <Swiper
             data={questions}
-            renderCard={({ statement }) =>
-              <View>
-                <Text>
-                  {statement}
-                </Text>
-              </View>}
+            renderCard={(question, index) =>
+              <Card question={question} order={index + 1} />}
             renderNoCards={() =>
               <View>
                 <Text>Complete!</Text>
@@ -48,6 +39,11 @@ class DeckQuiz extends Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -57,8 +53,8 @@ const styles = StyleSheet.create({
   cardsContainer: {
     flex: 4,
     backgroundColor: neutreLightColor,
-    padding: 10
-    //alignSelf: 'stretch'
+    padding: 10,
+    alignSelf: 'stretch'
   }
 });
 export default withNavOptions(({ navigation }) => ({
