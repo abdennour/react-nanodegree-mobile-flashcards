@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Text, Button } from 'react-native-elements';
-import { primaryColor, lightColor, silverColor } from '../utils/colors';
+import {
+  primaryColor,
+  lightColor,
+  silverColor,
+  blackColor
+} from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
 class DeckBoard extends Component {
@@ -59,6 +64,15 @@ class DeckBoard extends Component {
             containerViewStyle={styles.btnContainer}
             onPress={() =>
               this.props.navigation.navigate(SCREENS.QUESTION_NEW, { deck })}
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            icon={{ name: 'exchange', type: 'font-awesome', size: 32 }}
+            title="Switch Deck"
+            backgroundColor={blackColor}
+            containerViewStyle={styles.btnContainer}
+            onPress={() => this.props.navigation.navigate(SCREENS.HOME)}
           />
         </View>
       </View>
