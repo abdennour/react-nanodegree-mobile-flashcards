@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import DecksList from './DecksList';
 import AddDeckButton from './AddDeckButton';
-import { navOptions } from '../utils/helpers';
+import withNavOptions from './hoc/withNavOptions';
 
 class Home extends Component {
-  static navigationOptions = () => navOptions({ headerTitle: 'DECKS' });
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -17,4 +16,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withNavOptions({ headerTitle: 'DECKS' })(Home);

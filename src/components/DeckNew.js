@@ -11,6 +11,7 @@ import { reduxForm, Field, reset, untouch } from 'redux-form';
 import { addDeck } from '../actions';
 import { primaryColor } from '../utils/colors';
 import { SCREENS, FORMS } from '../utils/enums';
+import withNavOptions from './hoc/withNavOptions';
 
 class DeckNew extends Component {
   componentDidMount() {
@@ -81,9 +82,11 @@ function mapStateToProps({ decks }) {
   return { decks };
 }
 
-export default connect(mapStateToProps, { addDeck })(
-  reduxForm({
-    validate,
-    form: FORMS.NEW_DECK
-  })(DeckNew)
+export default withNavOptions({ headerTitle: 'NEW DECK' })(
+  connect(mapStateToProps, { addDeck })(
+    reduxForm({
+      validate,
+      form: FORMS.NEW_DECK
+    })(DeckNew)
+  )
 );

@@ -8,6 +8,7 @@ import {
   FormValidationMessage
 } from 'react-native-elements';
 import { reduxForm, Field, reset, untouch } from 'redux-form';
+import withNavOptions from './hoc/withNavOptions';
 import { addQuestion } from '../actions';
 import { primaryColor } from '../utils/colors';
 import { SCREENS, FORMS } from '../utils/enums';
@@ -80,9 +81,18 @@ function validate(values) {
   }
   return errors;
 }
-export default connect(null, { addQuestion })(
-  reduxForm({
-    validate,
-    form: FORMS.NEW_CARD
-  })(CardNew)
+
+function mapNavOptions({ navigation }) {
+  return {
+    headerTitle: `NEW ${navigation.state.params.deck.toUpperCase()} CARD`
+  };
+}
+
+export default withNavOptions(mapNavOptions)(
+  connect(null, { addQuestion })(
+    reduxForm({
+      validate,
+      form: FORMS.NEW_CARD
+    })(CardNew)
+  )
 );

@@ -1,5 +1,4 @@
-import { Dimensions, Platform } from 'react-native';
-import { primaryColor, darkColor } from './colors';
+import { Dimensions } from 'react-native';
 
 export function getWidth() {
   return Dimensions.get('window').width;
@@ -19,22 +18,4 @@ export function getDateString(time = Date.now()) {
 
 export function isToday(date) {
   return getDateString(date) === getDateString();
-}
-
-export function navOptions(otherOptions) {
-  const options = {
-    headerTitle: 'DECKS',
-    headerTintColor: primaryColor,
-    headerStyle: {
-      backgroundColor: darkColor,
-      borderWidth: 3,
-      borderBottomColor: primaryColor
-    },
-    ...otherOptions
-  };
-  if (Platform.OS === 'ios') {
-    options.headerTitleStyle = { marginBottom: 20 };
-  }
-
-  return options;
 }

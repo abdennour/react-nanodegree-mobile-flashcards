@@ -9,6 +9,7 @@ import {
   neutreLightColor
 } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
+import withNavOptions from './hoc/withNavOptions';
 
 class DeckBoard extends Component {
   render() {
@@ -109,4 +110,6 @@ function mapStateToProps({ questions }, ownProps) {
   return { questions: questions.filter(q => q.deck === deck) };
 }
 
-export default connect(mapStateToProps)(DeckBoard);
+export default withNavOptions(({ navigation }) => ({
+  headerTitle: navigation.state.params.deck
+}))(connect(mapStateToProps)(DeckBoard));
