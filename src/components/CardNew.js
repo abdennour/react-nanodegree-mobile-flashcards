@@ -10,13 +10,15 @@ import {
 import { reduxForm, Field, reset, untouch } from 'redux-form';
 import { addQuestion } from '../actions';
 import { primaryColor } from '../utils/colors';
-import { SCREENS } from '../utils/enums';
+import { SCREENS, FORMS } from '../utils/enums';
 
 class CardNew extends Component {
   handleSubmit = values => {
     const { deck } = this.props.navigation.state.params;
     this.props.addQuestion({ ...values, deck });
     this.props.navigation.navigate(SCREENS.DECK_BOARD, { deck });
+    this.props.dispatch(reset(FORMS.NEW_CARD));
+    this.props.dispatch(untouch(FORMS.NEW_CARD));
   };
 
   renderInput = ({ input, meta: { touched, error }, ...rest }) => {
@@ -81,6 +83,6 @@ function validate(values) {
 export default connect(null, { addQuestion })(
   reduxForm({
     validate,
-    form: 'newCard'
+    form: FORMS.NEW_CARD
   })(CardNew)
 );

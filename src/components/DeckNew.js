@@ -10,7 +10,7 @@ import {
 import { reduxForm, Field, reset, untouch } from 'redux-form';
 import { addDeck } from '../actions';
 import { primaryColor } from '../utils/colors';
-import { SCREENS } from '../utils/enums';
+import { SCREENS, FORMS } from '../utils/enums';
 
 class DeckNew extends Component {
   componentDidMount() {
@@ -20,8 +20,8 @@ class DeckNew extends Component {
   handleSubmit = values => {
     this.props.addDeck(values.deck);
     this.props.navigation.navigate(SCREENS.HOME);
-    this.props.dispatch(reset('newDeck'));
-    this.props.dispatch(untouch('newDeck'));
+    this.props.dispatch(reset(FORMS.NEW_DECK));
+    this.props.dispatch(untouch(FORMS.NEW_DECK));
   };
 
   renderInput = ({ input, meta: { touched, error }, ...rest }) => {
@@ -84,6 +84,6 @@ function mapStateToProps({ decks }) {
 export default connect(mapStateToProps, { addDeck })(
   reduxForm({
     validate,
-    form: 'newDeck'
+    form: FORMS.NEW_DECK
   })(DeckNew)
 );

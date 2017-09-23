@@ -7,3 +7,8 @@ export const SCREENS = {
   DECK_QUIZ: 'DeckQuiz',
   DECK_SCORE: 'DeckScore'
 };
+
+export const FORMS = {
+  NEW_DECK: 'newDeck',
+  NEW_CARD: 'newCard'
+};

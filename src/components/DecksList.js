@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
-import { primaryColor, lightColor, darkColor } from '../utils/colors';
+import { primaryColor, lightColor, nearDarkColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
 class DecksList extends Component {
@@ -32,7 +32,7 @@ class DecksList extends Component {
       <ListItem
         key={sectionId}
         title={deck.name}
-        titleStyle={{ fontWeight: 'bold', color: darkColor }}
+        titleStyle={{ fontWeight: 'bold', color: nearDarkColor }}
         badge={badge}
         onPress={() =>
           this.props.navigate(SCREENS.DECK_BOARD, { deck: deck.name })}
