@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
+import Deck from './Deck';
 import { neutreLightColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
@@ -24,7 +25,19 @@ class DeckQuiz extends Component {
           </Text>
         </View>
         <View style={styles.cardsContainer}>
-          <Text>Decks here</Text>
+          <Deck
+            data={questions}
+            renderCard={({ statement }) =>
+              <View>
+                <Text>
+                  {statement}
+                </Text>
+              </View>}
+            renderNoCards={() =>
+              <View>
+                <Text>Complete!</Text>
+              </View>}
+          />
         </View>
         <View style={{ flex: 1 }}>
           <Text>note how to swipe</Text>
