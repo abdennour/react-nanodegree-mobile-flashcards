@@ -13,6 +13,10 @@ import { primaryColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
 class DeckNew extends Component {
+  componentDidMount() {
+    this.deck.focus();
+  }
+
   handleSubmit = values => {
     this.props.addDeck(values.deck);
     this.props.navigation.navigate(SCREENS.HOME);
@@ -26,7 +30,13 @@ class DeckNew extends Component {
         <FormLabel>
           {rest.label}
         </FormLabel>
-        <FormInput onChangeText={input.onChange} {...input} />
+        <FormInput
+          onChangeText={input.onChange}
+          {...input}
+          ref={element => {
+            this[input.name] = element;
+          }}
+        />
         <FormValidationMessage>
           {touched && error ? error : null}
         </FormValidationMessage>
