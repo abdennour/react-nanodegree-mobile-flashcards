@@ -51,13 +51,14 @@ class DeckBoard extends Component {
                   borderWidth: 2
                 }
               ]}
-              onPress={() => {}}
+              onPress={() =>
+                this.props.navigation.navigate(SCREENS.CARD_QUIZ, { deck })}
             />}
 
           {this.props.questions.length === 0 &&
             <Text style={styles.notification}>
-              You don't have cards in this deck! Add questions to be able to
-              start Quiz on "{deck}" deck.
+              You don't have cards in this deck! Add cards (questions) to be
+              able to start Quiz on "{deck}" deck.
             </Text>}
           <Button
             Component={TouchableOpacity}
