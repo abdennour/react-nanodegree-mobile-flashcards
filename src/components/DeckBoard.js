@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { Text, Button } from 'react-native-elements';
 import { primaryColor, lightColor, silverColor } from '../utils/colors';
+import { SCREENS } from '../utils/enums';
 
 class DeckBoard extends Component {
   render() {
@@ -17,14 +18,14 @@ class DeckBoard extends Component {
           }}
         >
           <Text h1>
-            {deck.name}
+            {deck}
           </Text>
           <Text h5>
-            {deck.questions.length} cards
+            {this.props.questions.length} cards
           </Text>
         </View>
         <View style={{ flex: 2, alignSelf: 'stretch' }}>
-          {deck.questions.length > 0 &&
+          {this.props.questions.length > 0 &&
             <Button
               icon={{
                 name: 'question-circle',
@@ -46,17 +47,18 @@ class DeckBoard extends Component {
               onPress={() => {}}
             />}
 
-          {deck.questions.length === 0 &&
+          {this.props.questions.length === 0 &&
             <Text style={styles.notification}>
               You don't have cards in this deck! Add questions to be able to
-              start Quiz on "{deck.name}" deck.
+              start Quiz on "{deck}" deck.
             </Text>}
           <Button
             icon={{ name: 'plus', type: 'entypo', size: 32 }}
             title="New Question"
             backgroundColor={primaryColor}
             containerViewStyle={styles.btnContainer}
-            onPress={() => {}}
+            onPress={() =>
+              this.props.navigation.navigate(SCREENS.QUESTION_NEW, { deck })}
           />
         </View>
       </View>
@@ -81,4 +83,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckBoard;
+function mapStateToProps({ questions }, ownProps) {
+  const { deck } = ownProps.navigation.state.params;
+  return { questions: questions.filter(q => q.deck === deck) };
+}
+
+export default connect(mapStateToProps)(DeckBoard);

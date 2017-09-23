@@ -13,12 +13,12 @@ class DecksList extends Component {
 
   componentWillMount() {
     // Tell ListView which dataSource
-    const ds = new ListView.DataSource({
+    this.ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     // Delegate dataSource to render only visibile items, and for other items,
     //  will be visibile on scrolling.
-    this.dataSource = ds.cloneWithRows(this.props.decks);
+    this.dataSource = this.ds.cloneWithRows(this.props.decks);
   }
 
   renderRow = (deck, sectionId) => {
@@ -34,12 +34,14 @@ class DecksList extends Component {
         title={deck.name}
         titleStyle={{ fontWeight: 'bold', color: darkColor }}
         badge={badge}
-        onPress={() => this.props.navigate(SCREENS.DECK_BOARD, { deck })}
+        onPress={() =>
+          this.props.navigate(SCREENS.DECK_BOARD, { deck: deck.name })}
       />
     );
   };
 
   render() {
+    this.dataSource = this.ds.cloneWithRows(this.props.decks);
     return (
       <List style={{ flex: 1, backgroundColor: lightColor }}>
         <ListView renderRow={this.renderRow} dataSource={this.dataSource} />

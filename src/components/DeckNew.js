@@ -25,14 +25,16 @@ class DeckNew extends Component {
   };
 
   renderInput = ({ input, meta: { touched, error }, ...rest }) => {
+    const { label, ...inputProps } = rest;
     return (
       <View>
         <FormLabel>
-          {rest.label}
+          {label}
         </FormLabel>
         <FormInput
           onChangeText={input.onChange}
           {...input}
+          {...inputProps}
           ref={element => {
             this[input.name] = element;
           }}
@@ -47,7 +49,12 @@ class DeckNew extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Field name="deck" component={this.renderInput} label="Deck Name" />
+        <Field
+          name="deck"
+          component={this.renderInput}
+          label="Deck Name"
+          placeholder="Please enter a new deck name"
+        />
         <Button
           icon={{ name: 'plus', type: 'entypo' }}
           title="Add"
