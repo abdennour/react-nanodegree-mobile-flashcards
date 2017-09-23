@@ -60,7 +60,7 @@ class CardNew extends Component {
         />
         <Button
           icon={{ name: 'plus', type: 'entypo' }}
-          title="Add Question"
+          title="Add Card"
           backgroundColor={primaryColor}
           containerViewStyle={{ marginTop: 15 }}
           onPress={this.props.handleSubmit(this.handleSubmit)}
