@@ -7,7 +7,7 @@ import store from './src/store';
 import Home from './src/components/Home';
 import DeckNew from './src/components/DeckNew';
 import DeckBoard from './src/components/DeckBoard';
-import QuestionNew from './src/components/QuestionNew';
+import CardNew from './src/components/CardNew';
 import DeckQuiz from './src/components/DeckQuiz';
 import DeckScore from './src/components/DeckScore';
 import { primaryColor } from './src/utils/colors';
@@ -23,8 +23,8 @@ const MainNavigator = StackNavigator({
   [SCREENS.DECK_BOARD]: {
     screen: DeckBoard
   },
-  [SCREENS.QUESTION_NEW]: {
-    screen: QuestionNew
+  [SCREENS.CARD_NEW]: {
+    screen: CardNew
   },
   [SCREENS.DECK_QUIZ]: {
     screen: DeckQuiz

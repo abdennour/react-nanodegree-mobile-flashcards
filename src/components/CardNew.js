@@ -12,7 +12,7 @@ import { addQuestion } from '../actions';
 import { primaryColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
-class QuestionNew extends Component {
+class CardNew extends Component {
   handleSubmit = values => {
     const { deck } = this.props.navigation.state.params;
     this.props.addQuestion({ ...values, deck });
@@ -81,6 +81,6 @@ function validate(values) {
 export default connect(null, { addQuestion })(
   reduxForm({
     validate,
-    form: 'newQuestion'
-  })(QuestionNew)
+    form: 'newCard'
+  })(CardNew)
 );

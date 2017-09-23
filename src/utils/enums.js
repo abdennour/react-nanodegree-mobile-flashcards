@@ -3,7 +3,7 @@ export const SCREENS = {
   DECK_NEW: 'DeckNew',
   DECK_BOARD: 'DeckBoard',
   DECK_NEW: 'DeckNew',
-  QUESTION_NEW: 'QuestionNew',
+  CARD_NEW: 'CardNew',
   DECK_QUIZ: 'DeckQuiz',
   DECK_SCORE: 'DeckScore'
 };
