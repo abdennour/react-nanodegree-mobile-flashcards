@@ -9,6 +9,7 @@ import {
 } from 'react-native-elements';
 import { reduxForm, Field, reset, untouch } from 'redux-form';
 import { addDeck } from '../actions';
+import { primaryColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
 class DeckNew extends Component {
@@ -40,6 +41,7 @@ class DeckNew extends Component {
         <Button
           icon={{ name: 'plus', type: 'entypo' }}
           title="Add"
+          backgroundColor={primaryColor}
           containerViewStyle={{ marginTop: 15 }}
           onPress={this.props.handleSubmit(this.handleSubmit)}
         />
