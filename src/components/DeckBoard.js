@@ -6,7 +6,7 @@ import {
   primaryColor,
   lightColor,
   silverColor,
-  neutreColor
+  neutreLightColor
 } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
@@ -60,7 +60,11 @@ class DeckBoard extends Component {
             </Text>}
           <Button
             Component={TouchableOpacity}
-            icon={{ name: 'credit-card', type: 'entypo', size: 32 }}
+            icon={{
+              name: 'credit-card-plus',
+              type: 'material-community',
+              size: 32
+            }}
             title="New Card"
             backgroundColor={primaryColor}
             containerViewStyle={styles.btnContainer}
@@ -73,7 +77,7 @@ class DeckBoard extends Component {
             Component={TouchableOpacity}
             icon={{ name: 'exchange', type: 'font-awesome', size: 32 }}
             title="Switch Deck"
-            backgroundColor={neutreColor}
+            backgroundColor={neutreLightColor}
             containerViewStyle={styles.btnContainer}
             onPress={() => this.props.navigation.navigate(SCREENS.HOME)}
           />
