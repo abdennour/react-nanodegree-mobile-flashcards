@@ -3,6 +3,7 @@ import {
   View,
   Animated,
   PanResponder,
+  Platform,
   Dimensions,
   LayoutAnimation,
   UIManager
@@ -65,17 +66,20 @@ class Swiper extends Component {
 
   position = new Animated.ValueXY();
 
-  cardStyle() {
+  currentCardStyle() {
     // interpolation between dx & rotation degree
     const rotate = this.position.x.interpolate({
       inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
       outputRange: ['-120deg', '0deg', '120deg']
     });
-    return {
+    const style = {
       ...this.position.getLayout(),
-      transform: [{ rotate }],
-      zIndex: 2
+      transform: [{ rotate }]
     };
+    if (Platform.OS !== 'ios') {
+      style.elevation = 100;
+    }
+    return style;
   }
 
   resetPosition() {
@@ -88,22 +92,17 @@ class Swiper extends Component {
     return this.props.data
       .map((r, index) => {
         if (index < this.state.index) return null;
+        let style = [styles.card];
+        let props = { key: JSON.stringify(r) };
         if (index === this.state.index) {
-          return (
-            <Animated.View
-              key={JSON.stringify(r)}
-              style={[this.cardStyle(), styles.card, { zIndex: 2 }]}
-              {...this.panResponder.panHandlers}
-            >
-              {this.props.renderCard(r, index)}
-            </Animated.View>
-          );
+          style = [...style, this.currentCardStyle()];
+          props = { ...props, ...this.panResponder.panHandlers };
+        } else {
+          style = [...style, { top: (index - this.state.index) * 10 }];
         }
+        props = { ...props, style };
         return (
-          <Animated.View
-            key={JSON.stringify(r)}
-            style={[styles.card, { top: (index - this.state.index) * 10 }]}
-          >
+          <Animated.View {...props}>
             {this.props.renderCard(r, index)}
           </Animated.View>
         );
