@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
+import { neutreLightColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
 class DeckQuiz extends Component {
@@ -22,6 +23,12 @@ class DeckQuiz extends Component {
             {questions.length} cards
           </Text>
         </View>
+        <View style={styles.cardsContainer}>
+          <Text>Decks here</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text>note how to swipe</Text>
+        </View>
       </View>
     );
   }
@@ -33,6 +40,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  cardsContainer: {
+    flex: 4,
+    backgroundColor: neutreLightColor,
+    padding: 10
+    //alignSelf: 'stretch'
   }
 });
 export default withNavOptions(({ navigation }) => ({
