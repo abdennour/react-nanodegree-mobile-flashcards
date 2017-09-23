@@ -6,7 +6,7 @@ import Card from './Card';
 import { neutreLightColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
-class DeckQuiz extends Component {
+class Quiz extends Component {
   render() {
     const { deck, questions } = this.props.navigation.state.params;
     return (
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
 });
 export default withNavOptions(({ navigation }) => ({
   headerTitle: `Quiz on ${navigation.state.params.deck}`
-}))(DeckQuiz);
+}))(Quiz);

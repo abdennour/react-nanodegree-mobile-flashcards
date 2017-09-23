@@ -52,7 +52,7 @@ class DeckBoard extends Component {
                 }
               ]}
               onPress={() =>
-                this.props.navigation.navigate(SCREENS.DECK_QUIZ, {
+                this.props.navigation.navigate(SCREENS.QUIZ, {
                   deck,
                   questions: this.props.questions
                 })}
