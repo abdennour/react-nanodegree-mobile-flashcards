@@ -27,7 +27,7 @@ class Swiper extends Component {
 
   componentWillReceiveProps(nextPorps) {
     if (nextPorps.data !== this.props.data) {
-      this.setState({ index: 0 });
+      this.reset();
     }
   }
 
@@ -101,6 +101,12 @@ class Swiper extends Component {
     }
     return style;
   }
+
+  reset = () => {
+    return new Promise(resolve => {
+      this.setState({ index: 0 }, resolve);
+    });
+  };
 
   resetPosition() {
     Animated.spring(this.position, {

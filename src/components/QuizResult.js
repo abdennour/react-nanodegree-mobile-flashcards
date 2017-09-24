@@ -1,11 +1,11 @@
 import { func, number, string } from 'prop-types';
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import { View, StyleSheet, Platform } from 'react-native';
+import { Text, Icon } from 'react-native-elements';
 import AnimateNumber from 'react-native-animate-number';
 import { connect } from 'react-redux';
 import { completeQuiz } from '../actions';
-import { neutreColor, primaryColor } from '../utils/colors';
+import { neutreColor, primaryColor, lightColor } from '../utils/colors';
 
 class QuizResult extends Component {
   static propTypes = {
@@ -25,22 +25,42 @@ class QuizResult extends Component {
     return ratio * 100;
   }
 
+  scoreFormatter = score => {
+    return score === this.score ? this.score : parseFloat(score).toFixed(2);
+  };
+
   render() {
     const { corrects, incorrects } = this.props;
     return (
       <View style={styles.container}>
-        <Text
-          style={{ color: corrects < incorrects ? neutreColor : primaryColor }}
-          h1
-        >
-          <AnimateNumber
-            value={this.score}
-            interval={40}
-            formatter={score =>
-              score === this.score ? this.score : parseFloat(score).toFixed(2)}
-          />{' '}
-          %
-        </Text>
+        <View style={{ flex: 2, justifyContent: 'center' }}>
+          <Text
+            style={{
+              color: corrects < incorrects ? neutreColor : primaryColor
+            }}
+            h1
+          >
+            <AnimateNumber
+              value={this.score}
+              interval={4}
+              formatter={this.scoreFormatter}
+            />{' '}
+            %
+          </Text>
+        </View>
+        <Icon
+          type="ionicon"
+          size={50}
+          name={Platform.OS === 'ios' ? 'ios-repeat' : 'md-repeat'}
+          color={primaryColor}
+          containerStyle={{
+            padding: 20,
+            justifyContent: 'center'
+          }}
+          onPress={this.props.onRepeat}
+          reverse
+          raised
+        />
       </View>
     );
   }

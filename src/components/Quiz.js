@@ -67,6 +67,18 @@ class Quiz extends Component {
     return this.state.remainingCounter === 0;
   }
 
+  reset = () => {
+    this.swiper.reset().then(() => {
+      this.setState({
+        remainingCounter: this.questions.length,
+        corrects: 0,
+        incorrects: 0,
+        correctColor: neutreLightColor,
+        incorrectColor: neutreLightColor
+      });
+    });
+  };
+
   render() {
     const { corrects, incorrects, correctColor, incorrectColor } = this.state;
     const notesProps = { correctColor, incorrectColor }; // needed to lint
@@ -83,6 +95,7 @@ class Quiz extends Component {
         </View>
         <View style={styles.cardsContainer}>
           <Swiper
+            ref={component => (this.swiper = component)}
             data={this.questions}
             onSwipeLeft={this.onSwipeLeft}
             onSwipeRight={this.onSwipeRight}
@@ -92,7 +105,11 @@ class Quiz extends Component {
             renderCard={(question, index) =>
               <Card question={question} order={index + 1} />}
             renderNoCards={() =>
-              <QuizResult {...this.state} deck={this.deck} />}
+              <QuizResult
+                {...this.state}
+                deck={this.deck}
+                onRepeat={this.reset}
+              />}
           />
         </View>
         {this.completed
