@@ -26,7 +26,9 @@ class QuizResult extends Component {
   }
 
   scoreFormatter = score => {
-    return score === this.score ? this.score : parseFloat(score).toFixed(2);
+    return score === this.score && parseInt(score, 10) === parseFloat(score)
+      ? this.score
+      : parseFloat(score).toFixed(2);
   };
 
   render() {
