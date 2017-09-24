@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet, Platform } from 'react-native';
 import { Text, Icon } from 'react-native-elements';
 import Swiper from './Swiper'; // from 'react-native-xswiper';
 import Card from './Card';
@@ -56,7 +56,7 @@ class Quiz extends Component {
   };
 
   onCompleteFlipCard = isFront => {
-    if (!isFront) {
+    if (!isFront && Platform.OS === 'ios') {
       this.highlightNotes(40);
     }
   };
