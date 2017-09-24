@@ -10,6 +10,9 @@ class Card extends Component {
 
     this.animatedValue.addListener(({ value }) => {
       this.flipValue = value;
+      if ((value === 0 || value === 180) && this.props.onCompleteFlip) {
+        this.props.onCompleteFlip(value === 0);
+      }
     });
     this.frontInterpolate = this.animatedValue.interpolate({
       inputRange: [0, 180],
