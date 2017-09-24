@@ -25,13 +25,15 @@ class Quiz extends Component {
 
   onSwipeLeft = () => {
     this.setState({
-      incorrectColor: negativeColor
+      incorrectColor: negativeColor,
+      correctColor: neutreLightColor
     });
   };
 
   onSwipeRight = () => {
     this.setState({
-      correctColor: primaryColor
+      correctColor: primaryColor,
+      incorrectColor: neutreLightColor
     });
   };
 
