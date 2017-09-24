@@ -58,7 +58,6 @@ class QuizResult extends Component {
             justifyContent: 'center'
           }}
           onPress={this.props.onRepeat}
-          reverse
           raised
         />
       </View>
