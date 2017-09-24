@@ -97,7 +97,7 @@ class Card extends Component {
             {question.answer}
           </Text>
           <Button
-            icon={{ name: 'hand', type: 'entypo' }}
+            icon={{ name: 'hand', type: 'entypo', color: primaryColor }}
             backgroundColor={lightColor}
             color={primaryColor}
             title="Got it!"
