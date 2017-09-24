@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
+import { reduxForm, Field, reset, untouch } from 'redux-form';
 import {
-  Button,
   FormLabel,
   FormInput,
   FormValidationMessage
 } from 'react-native-elements';
-import { reduxForm, Field, reset, untouch } from 'redux-form';
+import Button from './Button';
 import { addDeck } from '../actions';
 import { primaryColor } from '../utils/colors';
 import { SCREENS, FORMS } from '../utils/enums';
@@ -57,7 +57,6 @@ class DeckNew extends Component {
           placeholder="Please enter a new deck name"
         />
         <Button
-          Component={TouchableOpacity}
           icon={{ name: 'plus', type: 'entypo' }}
           title="Add"
           backgroundColor={primaryColor}

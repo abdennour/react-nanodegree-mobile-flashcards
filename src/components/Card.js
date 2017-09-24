@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
-import { Card as BaseCard, Text, Button } from 'react-native-elements';
+import { Card as BaseCard, Text } from 'react-native-elements';
+import Button from './Button';
 import { primaryColor, lightColor } from '../utils/colors';
 
 class Card extends Component {

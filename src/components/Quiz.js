@@ -12,7 +12,7 @@ import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
   state = {
-    remainingCounter: this.questions.length,
+    remainingCounter: this.props.navigation.state.params.questions.length,
     corrects: 0,
     incorrects: 0
   };
@@ -37,17 +37,9 @@ class Quiz extends Component {
     this.props.navigation.navigate(SCREENS.QUIZ_RESULT, {
       corrects,
       incorrects,
-      deck: this.deck,
-      questions: this.questions
+      deck: this.props.navigation.state.params.deck,
+      questions: this.props.navigation.state.params.questions
     });
-  }
-
-  get questions() {
-    return this.props.navigation.state.params.questions;
-  }
-
-  get deck() {
-    return this.props.navigation.state.params.deck;
   }
 
   get completed() {
@@ -59,7 +51,7 @@ class Quiz extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text h1>
-            {this.deck}
+            {this.props.navigation.state.params.deck}
           </Text>
           {this.state.remainingCounter > 0 &&
             <Text h5>
@@ -68,7 +60,7 @@ class Quiz extends Component {
         </View>
         <View style={styles.cardsContainer}>
           <Swiper
-            data={this.questions}
+            data={this.props.navigation.state.params.questions}
             onReleaseSwipe={() => this.props.finishSwipe()}
             onSwipeLeft={() => this.props.swipeLeft()}
             onSwipeRight={() => this.props.swipeRight()}
@@ -104,13 +96,6 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state, ownProps) {
-  const { deck, questions } = ownProps.navigation.state.params;
-  return {
-    deck,
-    questions
-  };
-}
 export default withNavOptions(({ navigation }) => ({
   headerTitle: `Quiz on ${navigation.state.params.deck}`
-}))(connect(mapStateToProps, { swipeLeft, swipeRight, finishSwipe })(Quiz));
+}))(connect(null, { swipeLeft, swipeRight, finishSwipe })(Quiz));

@@ -1,10 +1,11 @@
 import { func, number, string } from 'prop-types';
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-// import HeaderBackButton from 'react-navigation//lib-rn/views/HeaderBackButton';
-import { Text, Icon, Button } from 'react-native-elements';
-import AnimateNumber from 'react-native-animate-number';
 import { connect } from 'react-redux';
+import { View, StyleSheet, Platform } from 'react-native';
+import { Text, Icon } from 'react-native-elements';
+import AnimateNumber from 'react-native-animate-number';
+import Button from './Button';
+import StartQuizButton from './StartQuizButton';
 import { completeQuiz } from '../actions';
 import {
   neutreLightColor,
@@ -56,21 +57,10 @@ class QuizResult extends Component {
             %
           </Text>
         </View>
-        <Icon
-          type="ionicon"
-          size={50}
-          name={Platform.OS === 'ios' ? 'ios-repeat' : 'md-repeat'}
-          color={primaryColor}
-          containerStyle={{
-            padding: 20,
-            justifyContent: 'center'
-          }}
-          onPress={() =>
-            this.props.navigation.navigate(SCREENS.QUIZ, {
-              deck: this.props.deck,
-              questions: this.props.questions
-            })}
-          raised
+        <StartQuizButton
+          title="Restart quiz"
+          deck={this.props.deck}
+          navigate={this.props.navigation.navigate}
         />
       </View>
     );
@@ -183,10 +173,8 @@ function mapNavOptions({ navigation: { navigate, state: { params } } }) {
     headerLeft: null,
     headerRight: (
       <Button
-        Component={TouchableOpacity}
         onPress={() => navigate(SCREENS.DECK_BOARD, { deck: params.deck })}
         backgroundColor={lightColor}
-        borderRadius={Platform.OS === 'ios' ? 13 : 3}
         color={primaryColor}
         containerViewStyle={{ marginBottom: Platform.OS === 'ios' ? 20 : 0 }}
         title={params.deck.toUpperCase()}

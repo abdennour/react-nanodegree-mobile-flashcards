@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
+import { reduxForm, Field, reset, untouch } from 'redux-form';
 import {
-  Button,
   FormLabel,
   FormInput,
   FormValidationMessage
 } from 'react-native-elements';
-import { reduxForm, Field, reset, untouch } from 'redux-form';
+import Button from './Button';
+
 import withNavOptions from './hoc/withNavOptions';
 import { addQuestion } from '../actions';
 import { primaryColor } from '../utils/colors';
