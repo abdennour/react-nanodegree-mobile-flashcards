@@ -15,6 +15,9 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 
 class Swiper extends Component {
   static defaultProps = {
+    onCompleteSwipe: () => {},
+    onCompleteSwipeRight: () => {},
+    onCompleteSwipeLeft: () => {},
     onSwipe: () => {},
     onSwipeRight: () => {},
     onSwipeLeft: () => {}
@@ -36,13 +39,17 @@ class Swiper extends Component {
   }
 
   onSwipeComplete(direction) {
-    const { onSwipeLeft, onSwipeRight, onSwipe } = this.props;
+    const {
+      onCompleteSwipeLeft,
+      onCompleteSwipeRight,
+      onCompleteSwipe
+    } = this.props;
     this.position.setValue({ x: 0, y: 0 });
     this.setState(({ index }) => ({ index: index + 1 }));
-    onSwipe(this.state.index);
+    onCompleteSwipe(this.state.index);
     if (direction === 'right') {
-      onSwipeRight(this.state.index);
-    } else onSwipeLeft(this.state.index);
+      onCompleteSwipeRight(this.state.index);
+    } else onCompleteSwipeLeft(this.state.index);
   }
 
   forceSwipe(direction = 'right') {
@@ -57,6 +64,14 @@ class Swiper extends Component {
     onStartShouldSetPanResponder: () => true, // when put finger on the screen
     onPanResponderMove: (event, gesture) => {
       this.position.setValue({ x: gesture.dx, y: gesture.dy });
+      if (gesture.dx > 0) {
+        this.props.onSwipeRight(gesture.dx);
+      }
+
+      if (gesture.dx < 0) {
+        this.props.onSwipeLeft(gesture.dx);
+      }
+      this.props.onSwipe(gesture.dx);
     }, // when moving finger around screen
     onPanResponderRelease: (event, gesture) => {
       if (gesture.dx > SWIPE_THRESHOLD) {

@@ -6,29 +6,50 @@ import Card from './Card';
 import QuizResult from './QuizResult';
 import SwipeRightIcon from './icons/SwipeRightIcon';
 import SwipeLeftIcon from './icons/SwipeLeftIcon';
-import { neutreLightColor, neutreColor, lightColor } from '../utils/colors';
+import {
+  neutreLightColor,
+  lightColor,
+  primaryColor,
+  negativeColor
+} from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
   state = {
     remainingCounter: this.questions.length,
     corrects: 0,
-    incorrects: 0
+    incorrects: 0,
+    correctColor: neutreLightColor,
+    incorrectColor: neutreLightColor
   };
 
   onSwipeLeft = () => {
-    this.setState(({ incorrects }) => ({
-      incorrects: incorrects + 1
-    }));
+    this.setState({
+      incorrectColor: negativeColor
+    });
   };
 
   onSwipeRight = () => {
-    this.setState(({ corrects }) => ({
-      corrects: corrects + 1
+    this.setState({
+      correctColor: primaryColor
+    });
+  };
+
+  onCompleteSwipeLeft = () => {
+    this.setState(({ incorrects }) => ({
+      incorrects: incorrects + 1,
+      incorrectColor: neutreLightColor
     }));
   };
 
-  onSwipe = currentIndex => {
+  onCompleteSwipeRight = () => {
+    this.setState(({ corrects }) => ({
+      corrects: corrects + 1,
+      correctColor: neutreLightColor
+    }));
+  };
+
+  onCompleteSwipe = currentIndex => {
     this.setState({
       remainingCounter: this.questions.length - currentIndex
     });
@@ -57,29 +78,46 @@ class Quiz extends Component {
         <View style={styles.cardsContainer}>
           <Swiper
             data={this.questions}
-            onSwipe={this.onSwipe}
             onSwipeLeft={this.onSwipeLeft}
             onSwipeRight={this.onSwipeRight}
+            onCompleteSwipe={this.onCompleteSwipe}
+            onCompleteSwipeLeft={this.onCompleteSwipeLeft}
+            onCompleteSwipeRight={this.onCompleteSwipeRight}
             renderCard={(question, index) =>
               <Card question={question} order={index + 1} />}
             renderNoCards={() =>
               <QuizResult {...this.state} deck={this.deck} />}
           />
         </View>
-        <Notes />
+        <Notes
+          correctColor={this.state.correctColor}
+          incorrectColor={this.state.incorrectColor}
+        />
       </View>
     );
   }
 }
 
-function Notes() {
+function Notes({ correctColor, incorrectColor }) {
   return (
     <View style={styles.notes}>
-      <View style={[styles.container, { backgroundColor: neutreLightColor }]}>
+      <View
+        style={[
+          styles.container,
+          styles.note,
+          { backgroundColor: incorrectColor }
+        ]}
+      >
         <Text style={styles.notesText}>If incorrect, swipe left</Text>
         <SwipeLeftIcon size={40} color={lightColor} />
       </View>
-      <View style={[styles.container, { backgroundColor: neutreLightColor }]}>
+      <View
+        style={[
+          styles.container,
+          styles.note,
+          { backgroundColor: correctColor }
+        ]}
+      >
         <Text style={styles.notesText}>If correct, swipe right</Text>
         <SwipeRightIcon size={40} color={lightColor} />
       </View>
@@ -109,9 +147,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignSelf: 'stretch',
-    padding: 20
+    padding: 2
+  },
+  note: {
+    backgroundColor: neutreLightColor,
+    margin: 10
   },
   notesText: {
     color: lightColor
