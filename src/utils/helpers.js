@@ -8,14 +8,20 @@ export function getHeight() {
   return Dimensions.get('window').height;
 }
 
-export function getDateString(time = Date.now()) {
-  const date = new Date(time);
+/**
+ * Format date to YYYY-MM-DD , default : YYYY-MM-DD of today
+ * @method getDateString
+ * @param  {Array}      [args]  Date arguments with the samve overload.
+ * @return {String}             YYYY-MM-DD
+ */
+export function getDateString(...args) {
+  const date = new Date(...args);
   const todayUTC = new Date(
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
   return todayUTC.toISOString().split('T')[0];
 }
 
-export function isToday(date) {
-  return getDateString(date) === getDateString();
+export function isToday(yyyyMmDd) {
+  return yyyyMmDd === getDateString();
 }
