@@ -131,13 +131,11 @@ class Swiper extends Component {
   }
 
   render() {
-    return (
-      <View>
-        {this.state.index >= this.props.data.length
-          ? this.props.renderNoCards()
-          : this.renderCards()}
-      </View>
-    );
+    return this.state.index >= this.props.data.length
+      ? this.props.renderNoCards()
+      : <View>
+          {this.renderCards()}
+        </View>;
   }
 }
 

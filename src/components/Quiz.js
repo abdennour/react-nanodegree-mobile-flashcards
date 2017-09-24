@@ -63,7 +63,13 @@ class Quiz extends Component {
     return this.props.navigation.state.params.deck;
   }
 
+  get completed() {
+    return this.state.remainingCounter === 0;
+  }
+
   render() {
+    const { corrects, incorrects, correctColor, incorrectColor } = this.state;
+    const notesProps = { correctColor, incorrectColor }; // needed to lint
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -89,10 +95,9 @@ class Quiz extends Component {
               <QuizResult {...this.state} deck={this.deck} />}
           />
         </View>
-        <Notes
-          correctColor={this.state.correctColor}
-          incorrectColor={this.state.incorrectColor}
-        />
+        {this.completed
+          ? <ResultNotes corrects={corrects} incorrects={incorrects} />
+          : <Notes {...notesProps} />}
       </View>
     );
   }
@@ -125,6 +130,36 @@ function Notes({ correctColor, incorrectColor }) {
   );
 }
 
+function ResultNotes({ corrects, incorrects }) {
+  return (
+    <View style={styles.notes}>
+      <View
+        style={[
+          styles.container,
+          styles.note,
+          { backgroundColor: negativeColor }
+        ]}
+      >
+        <Text style={styles.notesText}>Incorrects</Text>
+        <Text style={styles.notesText} h1>
+          {incorrects}
+        </Text>
+      </View>
+      <View
+        style={[
+          styles.container,
+          styles.note,
+          { backgroundColor: primaryColor }
+        ]}
+      >
+        <Text style={styles.notesText}>Corrects</Text>
+        <Text style={styles.notesText} h1>
+          {corrects}
+        </Text>
+      </View>
+    </View>
+  );
+}
 const styles = StyleSheet.create({
   header: {
     flex: 1,

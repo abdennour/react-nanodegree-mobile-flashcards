@@ -35,7 +35,9 @@ class QuizResult extends Component {
         >
           <AnimateNumber
             value={this.score}
-            formatter={score => parseFloat(score).toFixed(2)}
+            interval={40}
+            formatter={score =>
+              score === this.score ? this.score : parseFloat(score).toFixed(2)}
           />{' '}
           %
         </Text>
@@ -48,8 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red'
+    justifyContent: 'center'
   }
 });
 
