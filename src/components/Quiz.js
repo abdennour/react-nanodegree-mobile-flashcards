@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, Icon } from 'react-native-elements';
 import Swiper from './Swiper'; // from 'react-native-xswiper';
 import Card from './Card';
 import QuizResult from './QuizResult';
-import swipeCorrectImg from '../assets/images/swipe-correct.png';
-import swipeIncorrectImg from '../assets/images/swipe-incorrect.png';
-import { neutreLightColor, neutreColor } from '../utils/colors';
+import SwipeRightIcon from './icons/SwipeRightIcon';
+import SwipeLeftIcon from './icons/SwipeLeftIcon';
+import { neutreLightColor, neutreColor, lightColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
@@ -75,25 +75,13 @@ class Quiz extends Component {
 function Notes() {
   return (
     <View style={styles.notes}>
-      <View>
+      <View style={[styles.container, { backgroundColor: neutreLightColor }]}>
         <Text style={styles.notesText}>If incorrect, swipe left</Text>
-        <View style={styles.notesImageContainer}>
-          <Image
-            source={swipeIncorrectImg}
-            resizeMode="contain"
-            style={styles.notesImage}
-          />
-        </View>
+        <SwipeLeftIcon size={40} color={lightColor} />
       </View>
-      <View>
+      <View style={[styles.container, { backgroundColor: neutreLightColor }]}>
         <Text style={styles.notesText}>If correct, swipe right</Text>
-        <View style={styles.notesImageContainer}>
-          <Image
-            source={swipeCorrectImg}
-            resizeMode="contain"
-            style={styles.notesImage}
-          />
-        </View>
+        <SwipeRightIcon size={40} color={lightColor} />
       </View>
     </View>
   );
@@ -126,7 +114,7 @@ const styles = StyleSheet.create({
     padding: 20
   },
   notesText: {
-    color: neutreColor
+    color: lightColor
   },
   notesImageContainer: {
     flex: 1,
