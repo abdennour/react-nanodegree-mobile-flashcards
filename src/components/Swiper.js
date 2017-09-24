@@ -40,16 +40,25 @@ class Swiper extends Component {
 
   onSwipeComplete(direction) {
     const {
+      data,
       onCompleteSwipeLeft,
       onCompleteSwipeRight,
-      onCompleteSwipe
+      onCompleteSwipe,
+      onNoCards
     } = this.props;
     this.position.setValue({ x: 0, y: 0 });
-    this.setState(({ index }) => ({ index: index + 1 }));
-    onCompleteSwipe(this.state.index);
-    if (direction === 'right') {
-      onCompleteSwipeRight(this.state.index);
-    } else onCompleteSwipeLeft(this.state.index);
+    this.setState(
+      ({ index }) => ({ index: index + 1 }),
+      () => {
+        onCompleteSwipe(this.state.index);
+        if (direction === 'right') {
+          onCompleteSwipeRight(this.state.index);
+        } else onCompleteSwipeLeft(this.state.index);
+        if (this.state.index >= data.length && onNoCards) {
+          onNoCards();
+        }
+      }
+    );
   }
 
   forceSwipe(direction = 'right') {
@@ -137,11 +146,11 @@ class Swiper extends Component {
   }
 
   render() {
-    return this.state.index >= this.props.data.length
-      ? this.props.renderNoCards()
-      : <View>
-          {this.renderCards()}
-        </View>;
+    return (
+      <View>
+        {this.state.index >= this.props.data.length ? null : this.renderCards()}
+      </View>
+    );
   }
 }
 

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Image, View, StyleSheet, Platform } from 'react-native';
-import { Text, Icon } from 'react-native-elements';
+import { View, StyleSheet, Platform } from 'react-native';
+import { Text } from 'react-native-elements';
 import Swiper from './Swiper'; // from 'react-native-xswiper';
 import Card from './Card';
-import QuizResult from './QuizResult';
 import SwipeRightIcon from './icons/SwipeRightIcon';
 import SwipeLeftIcon from './icons/SwipeLeftIcon';
 import {
@@ -12,6 +11,7 @@ import {
   primaryColor,
   negativeColor
 } from '../utils/colors';
+import { SCREENS } from '../utils/enums';
 import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
@@ -35,17 +35,31 @@ class Quiz extends Component {
   };
 
   onCompleteSwipeLeft = () => {
-    this.setState(({ incorrects }) => ({
-      incorrects: incorrects + 1,
-      incorrectColor: neutreLightColor
-    }));
+    this.setState(
+      ({ incorrects }) => ({
+        incorrects: incorrects + 1,
+        incorrectColor: neutreLightColor
+      }),
+      () => {
+        if (this.completed) {
+          this.onNoCards();
+        }
+      }
+    );
   };
 
   onCompleteSwipeRight = () => {
-    this.setState(({ corrects }) => ({
-      corrects: corrects + 1,
-      correctColor: neutreLightColor
-    }));
+    this.setState(
+      ({ corrects }) => ({
+        corrects: corrects + 1,
+        correctColor: neutreLightColor
+      }),
+      () => {
+        if (this.completed) {
+          this.onNoCards();
+        }
+      }
+    );
   };
 
   onCompleteSwipe = currentIndex => {
@@ -60,6 +74,16 @@ class Quiz extends Component {
       this.highlightNotes(40);
     }
   };
+
+  onNoCards() {
+    const { corrects, incorrects } = this.state;
+    this.props.navigation.navigate(SCREENS.QUIZ_RESULT, {
+      corrects,
+      incorrects,
+      deck: this.deck,
+      questions: this.questions
+    });
+  }
 
   get questions() {
     return this.props.navigation.state.params.questions;
@@ -162,17 +186,10 @@ class Quiz extends Component {
                 order={index + 1}
                 onCompleteFlip={this.onCompleteFlipCard}
               />}
-            renderNoCards={() =>
-              <QuizResult
-                {...this.state}
-                deck={this.deck}
-                onRepeat={this.reset}
-              />}
           />
         </View>
-        {this.completed
-          ? <ResultNotes corrects={corrects} incorrects={incorrects} />
-          : <Notes {...notesProps} />}
+
+        <Notes {...notesProps} />
       </View>
     );
   }
@@ -205,36 +222,6 @@ function Notes({ correctColor, incorrectColor }) {
   );
 }
 
-function ResultNotes({ corrects, incorrects }) {
-  return (
-    <View style={styles.notes}>
-      <View
-        style={[
-          styles.container,
-          styles.note,
-          { backgroundColor: negativeColor }
-        ]}
-      >
-        <Text style={styles.notesText}>Incorrects</Text>
-        <Text style={styles.notesText} h1>
-          {incorrects}
-        </Text>
-      </View>
-      <View
-        style={[
-          styles.container,
-          styles.note,
-          { backgroundColor: primaryColor }
-        ]}
-      >
-        <Text style={styles.notesText}>Corrects</Text>
-        <Text style={styles.notesText} h1>
-          {corrects}
-        </Text>
-      </View>
-    </View>
-  );
-}
 const styles = StyleSheet.create({
   header: {
     flex: 1,
