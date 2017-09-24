@@ -97,7 +97,7 @@ class Quiz extends Component {
     });
   }
 
-  highlightNotes(timeout = 200) {
+  highlightNotes(timeout = 400) {
     const toggle = (t = timeout) =>
       new Promise(resolve => {
         this.highlightLeftNote().then(() =>
@@ -110,9 +110,7 @@ class Quiz extends Component {
 
     toggle().then(() =>
       toggle().then(() =>
-        toggle().then(() =>
-          toggle().then(() => toggle().then(() => this.unhighlightNotes()))
-        )
+        toggle().then(() => toggle().then(() => this.unhighlightNotes()))
       )
     );
   }
