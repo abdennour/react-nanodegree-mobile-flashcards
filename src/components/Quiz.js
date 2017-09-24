@@ -22,19 +22,16 @@ class Quiz extends Component {
     correctColor: neutreLightColor,
     incorrectColor: neutreLightColor
   };
+  componentDidMount() {
+    setTimeout(() => this.highlightNotes(), 1000);
+  }
 
   onSwipeLeft = () => {
-    this.setState({
-      incorrectColor: negativeColor,
-      correctColor: neutreLightColor
-    });
+    this.highlightLeftNote();
   };
 
   onSwipeRight = () => {
-    this.setState({
-      correctColor: primaryColor,
-      incorrectColor: neutreLightColor
-    });
+    this.highlightRightNote();
   };
 
   onCompleteSwipeLeft = () => {
@@ -55,6 +52,13 @@ class Quiz extends Component {
     this.setState({
       remainingCounter: this.questions.length - currentIndex
     });
+    this.unhighlightNotes();
+  };
+
+  onCompleteFlipCard = isFront => {
+    if (!isFront) {
+      this.highlightNotes(40);
+    }
   };
 
   get questions() {
@@ -67,6 +71,56 @@ class Quiz extends Component {
 
   get completed() {
     return this.state.remainingCounter === 0;
+  }
+
+  highlightLeftNote() {
+    return new Promise(resolve => {
+      this.setState(
+        {
+          incorrectColor: negativeColor,
+          correctColor: neutreLightColor
+        },
+        resolve
+      );
+    });
+  }
+
+  highlightRightNote() {
+    return new Promise(resolve => {
+      this.setState(
+        {
+          correctColor: primaryColor,
+          incorrectColor: neutreLightColor
+        },
+        resolve
+      );
+    });
+  }
+
+  highlightNotes(timeout = 200) {
+    const toggle = (t = timeout) =>
+      new Promise(resolve => {
+        this.highlightLeftNote().then(() =>
+          setTimeout(() => {
+            this.highlightRightNote();
+            setTimeout(() => resolve(), t);
+          }, t)
+        );
+      });
+
+    toggle().then(() =>
+      toggle().then(() =>
+        toggle().then(() =>
+          toggle().then(() => toggle().then(() => this.unhighlightNotes()))
+        )
+      )
+    );
+  }
+  unhighlightNotes() {
+    this.setState({
+      incorrectColor: neutreLightColor,
+      correctColor: neutreLightColor
+    });
   }
 
   reset = () => {
@@ -105,7 +159,11 @@ class Quiz extends Component {
             onCompleteSwipeLeft={this.onCompleteSwipeLeft}
             onCompleteSwipeRight={this.onCompleteSwipeRight}
             renderCard={(question, index) =>
-              <Card question={question} order={index + 1} />}
+              <Card
+                question={question}
+                order={index + 1}
+                onCompleteFlip={this.onCompleteFlipCard}
+              />}
             renderNoCards={() =>
               <QuizResult
                 {...this.state}
