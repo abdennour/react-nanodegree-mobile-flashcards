@@ -1,7 +1,8 @@
 import { func, number, string } from 'prop-types';
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
-import { Text, Icon } from 'react-native-elements';
+import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+// import HeaderBackButton from 'react-navigation//lib-rn/views/HeaderBackButton';
+import { Text, Icon, Button } from 'react-native-elements';
 import AnimateNumber from 'react-native-animate-number';
 import { connect } from 'react-redux';
 import { completeQuiz } from '../actions';
@@ -80,8 +81,8 @@ class QuizResult extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text h1>
-            {this.props.deck}
+          <Text style={styles.headerText} h2>
+            Quiz Results on {this.props.deck}
           </Text>
         </View>
         <View style={styles.cardsContainer}>
@@ -129,6 +130,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  headerText: {
+    textAlign: 'center',
+    padding: 20
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -172,6 +177,29 @@ function mapStateToProps(state, ownProps) {
   return ownProps.navigation.state.params;
 }
 
-export default withNavOptions(({ navigation }) => ({
-  headerTitle: `Quiz Results on ${navigation.state.params.deck}`
-}))(connect(mapStateToProps, { completeQuiz })(QuizResult));
+function mapNavOptions({ navigation: { navigate, state: { params } } }) {
+  return {
+    headerTitle: params.deck,
+    headerLeft: null,
+    headerRight: (
+      <Button
+        Component={TouchableOpacity}
+        onPress={() => navigate(SCREENS.DECK_BOARD, { deck: params.deck })}
+        backgroundColor={lightColor}
+        borderRadius={Platform.OS === 'ios' ? 13 : 3}
+        color={primaryColor}
+        containerViewStyle={{ marginBottom: Platform.OS === 'ios' ? 20 : 0 }}
+        title={params.deck.toUpperCase()}
+        icon={{
+          type: 'ionicon',
+          name: Platform.OS === 'ios' ? 'ios-home' : 'md-home',
+          color: primaryColor
+        }}
+      />
+    )
+  };
+}
+
+export default withNavOptions(mapNavOptions)(
+  connect(mapStateToProps, { completeQuiz })(QuizResult)
+);

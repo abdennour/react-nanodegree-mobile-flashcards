@@ -6,7 +6,7 @@ import {
   primaryColor,
   lightColor,
   silverColor,
-  neutreLightColor
+  neutreColor
 } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 import withNavOptions from './hoc/withNavOptions';
@@ -82,7 +82,7 @@ class DeckBoard extends Component {
             Component={TouchableOpacity}
             icon={{ name: 'exchange', type: 'font-awesome', size: 32 }}
             title="Switch Deck"
-            backgroundColor={neutreLightColor}
+            backgroundColor={neutreColor}
             containerViewStyle={styles.btnContainer}
             onPress={() => this.props.navigation.navigate(SCREENS.HOME)}
           />

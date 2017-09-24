@@ -41,7 +41,7 @@ const MainNavigator = StackNavigator({
 function AppStatusBar({ backgroundColor, ...props }) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={primaryColor} {...props} />
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
     </View>
   );
 }
