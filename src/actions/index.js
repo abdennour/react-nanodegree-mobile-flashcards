@@ -20,3 +20,24 @@ export function completeQuiz({ deck, score }) {
     }
   };
 }
+
+export function swipeLeft(component = 'quiz') {
+  return {
+    component,
+    type: ActionTypes.SWIPE_LEFT
+  };
+}
+
+export function swipeRight(component = 'quiz') {
+  return {
+    component,
+    type: ActionTypes.SWIPE_RIGHT
+  };
+}
+
+export function finishSwipe(component = 'quiz') {
+  return {
+    component,
+    type: ActionTypes.FINISH_SWIPE
+  };
+}

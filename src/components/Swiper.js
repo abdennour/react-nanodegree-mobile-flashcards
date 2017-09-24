@@ -90,6 +90,9 @@ class Swiper extends Component {
       } else {
         this.resetPosition();
       }
+      if (this.props.onReleaseSwipe) {
+        this.props.onReleaseSwipe();
+      }
     } // When finger release the screen
   });
 
@@ -111,11 +114,10 @@ class Swiper extends Component {
     return style;
   }
 
-  reset = () => {
-    return new Promise(resolve => {
+  reset = () =>
+    new Promise(resolve => {
       this.setState({ index: 0 }, resolve);
     });
-  };
 
   resetPosition() {
     Animated.spring(this.position, {

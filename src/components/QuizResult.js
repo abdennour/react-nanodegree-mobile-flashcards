@@ -32,11 +32,10 @@ class QuizResult extends Component {
     return ratio * 100;
   }
 
-  scoreFormatter = score => {
-    return score === this.score && parseInt(score, 10) === parseFloat(score)
+  scoreFormatter = score =>
+    score === this.score && parseInt(score, 10) === parseFloat(score)
       ? this.score
       : parseFloat(score).toFixed(2);
-  };
 
   renderBody() {
     const { corrects, incorrects } = this.props;
