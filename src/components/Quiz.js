@@ -3,36 +3,67 @@ import { Image, View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import Swiper from './Swiper'; // from 'react-native-xswiper';
 import Card from './Card';
+import QuizResult from './QuizResult';
 import swipeCorrectImg from '../assets/images/swipe-correct.png';
 import swipeIncorrectImg from '../assets/images/swipe-incorrect.png';
 import { neutreLightColor, neutreColor } from '../utils/colors';
 import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
-  onSwipeLeft() {}
+  state = {
+    remainingCounter: this.questions.length,
+    corrects: 0,
+    incorrects: 0
+  };
 
-  onSwipeRight() {}
+  onSwipeLeft = () => {
+    this.setState(({ incorrects }) => ({
+      incorrects: incorrects + 1
+    }));
+  };
+
+  onSwipeRight = () => {
+    this.setState(({ corrects }) => ({
+      corrects: corrects + 1
+    }));
+  };
+
+  onSwipe = currentIndex => {
+    this.setState({
+      remainingCounter: this.questions.length - currentIndex
+    });
+  };
+
+  get questions() {
+    return this.props.navigation.state.params.questions;
+  }
+
+  get deck() {
+    return this.props.navigation.state.params.deck;
+  }
+
   render() {
-    const { deck, questions } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text h1>
-            {deck}
+            {this.deck}
           </Text>
-          <Text h5>
-            {questions.length} more to complete
-          </Text>
+          {this.state.remainingCounter > 0 &&
+            <Text h5>
+              {this.state.remainingCounter} more to complete
+            </Text>}
         </View>
         <View style={styles.cardsContainer}>
           <Swiper
-            data={questions}
+            data={this.questions}
+            onSwipe={this.onSwipe}
+            onSwipeLeft={this.onSwipeLeft}
+            onSwipeRight={this.onSwipeRight}
             renderCard={(question, index) =>
               <Card question={question} order={index + 1} />}
             renderNoCards={() =>
-              <View>
-                <Text>Complete!</Text>
-              </View>}
+              <QuizResult {...this.state} deck={this.deck} />}
           />
         </View>
         <Notes />

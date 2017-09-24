@@ -15,6 +15,7 @@ const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
 
 class Swiper extends Component {
   static defaultProps = {
+    onSwipe: () => {},
     onSwipeRight: () => {},
     onSwipeLeft: () => {}
   };
@@ -35,10 +36,13 @@ class Swiper extends Component {
   }
 
   onSwipeComplete(direction) {
-    const { onSwipeLeft, onSwipeRight } = this.props;
+    const { onSwipeLeft, onSwipeRight, onSwipe } = this.props;
     this.position.setValue({ x: 0, y: 0 });
     this.setState(({ index }) => ({ index: index + 1 }));
-    return direction === 'right' ? onSwipeRight() : onSwipeLeft();
+    onSwipe(this.state.index);
+    if (direction === 'right') {
+      onSwipeRight(this.state.index);
+    } else onSwipeLeft(this.state.index);
   }
 
   forceSwipe(direction = 'right') {
