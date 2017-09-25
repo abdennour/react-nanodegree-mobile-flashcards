@@ -4,7 +4,7 @@ import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 export default function() {
   return next => action => {
     if (action.type === ActionTypes.COMPLETE_QUIZ) {
-      setLocalNotification();
+      clearLocalNotification().then(setLocalNotification);
     }
     next(action);
   };
