@@ -23,6 +23,7 @@ class DeckNew extends Component {
     this.props.navigation.navigate(SCREENS.HOME);
     this.props.dispatch(reset(FORMS.NEW_DECK));
     this.props.dispatch(untouch(FORMS.NEW_DECK));
+    this.deck.clearText();
   };
 
   renderInput = ({ input, meta: { touched, error }, ...rest }) => {

@@ -21,6 +21,12 @@ class CardNew extends Component {
     this.props.navigation.navigate(SCREENS.DECK_BOARD, { deck });
     this.props.dispatch(reset(FORMS.NEW_CARD));
     this.props.dispatch(untouch(FORMS.NEW_CARD));
+    this.reset();
+  };
+
+  reset = () => {
+    this.statement.clearText();
+    this.answer.clearText();
   };
 
   renderInput = ({ input, meta: { touched, error }, ...rest }) => {
