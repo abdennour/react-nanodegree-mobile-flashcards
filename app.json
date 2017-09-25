@@ -1,5 +1,20 @@
 {
   "expo": {
-    "sdkVersion": "20.0.0"
-  }
+    "sdkVersion": "20.0.0",
+    "orientation": "portrait",
+    "name": "AbdennourFlashBlueCards",
+    "description": "Flashcards app implemented by Abdennour TOUMI mail@abdennoor.com",
+    "slug": "abdennourfashbluecards",
+    "version": "1.0",
+    "icon": "https://png.icons8.com/red-card/ultraviolet/100",
+    "notification": {
+      "icon": "https://png.icons8.com/red-card/ultraviolet/45"
+    },
+    "ios": {
+     "bundleIdentifier": "org.abdennourfashbluecards.exp",
+    },
+    "android": {
+     "package": "org.abdennourfashbluecards.exp",
+    }
+  },
 }

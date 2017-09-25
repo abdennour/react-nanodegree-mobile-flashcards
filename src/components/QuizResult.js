@@ -1,12 +1,11 @@
-import { func, number, string } from 'prop-types';
+import { number, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Platform } from 'react-native';
-import { Text, Icon } from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import AnimateNumber from 'react-native-animate-number';
 import Button from './Button';
 import StartQuizButton from './StartQuizButton';
-import { completeQuiz } from '../actions';
 import {
   neutreLightColor,
   lightColor,
@@ -14,24 +13,18 @@ import {
   negativeColor
 } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
+import { score as calculateScore } from '../utils/helpers';
 import withNavOptions from './hoc/withNavOptions';
 
 class QuizResult extends Component {
   static propTypes = {
     deck: string.isRequired,
     corrects: number.isRequired,
-    incorrects: number.isRequired,
-    completeQuiz: func.isRequired
+    incorrects: number.isRequired
   };
 
-  componentDidMount() {
-    this.props.completeQuiz({ deck: this.props.deck, score: this.score });
-  }
-
   get score() {
-    const ratio =
-      this.props.corrects / (this.props.corrects + this.props.incorrects);
-    return ratio * 100;
+    return calculateScore(this.props.corrects, this.props.incorrects);
   }
 
   scoreFormatter = score =>
@@ -189,5 +182,5 @@ function mapNavOptions({ navigation: { navigate, state: { params } } }) {
 }
 
 export default withNavOptions(mapNavOptions)(
-  connect(mapStateToProps, { completeQuiz })(QuizResult)
+  connect(mapStateToProps)(QuizResult)
 );
