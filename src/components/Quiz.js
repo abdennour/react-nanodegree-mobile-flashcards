@@ -7,7 +7,8 @@ import Card from './Card';
 import QuizNotes from './QuizNotes';
 import { neutreLightColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
-import { swipeLeft, swipeRight, finishSwipe } from '../actions';
+import { score as calculateScore } from '../utils/helpers';
+import { swipeLeft, swipeRight, finishSwipe, completeQuiz } from '../actions';
 import withNavOptions from './hoc/withNavOptions';
 
 class Quiz extends Component {
@@ -33,12 +34,19 @@ class Quiz extends Component {
   };
 
   onCompleteLastSwipe() {
+    const { deck, questions } = this.props.navigation.state.params;
     const { corrects, incorrects } = this.state;
+
+    // 👇🏻 A middleware will intervent here to reset the push notification
+    this.props.completeQuiz({
+      deck,
+      score: calculateScore(corrects, incorrects)
+    });
     this.props.navigation.navigate(SCREENS.QUIZ_RESULT, {
       corrects,
       incorrects,
-      deck: this.props.navigation.state.params.deck,
-      questions: this.props.navigation.state.params.questions
+      deck,
+      questions
     });
   }
 
@@ -98,4 +106,4 @@ const styles = StyleSheet.create({
 
 export default withNavOptions(({ navigation }) => ({
   headerTitle: `Quiz on ${navigation.state.params.deck}`
-}))(connect(null, { swipeLeft, swipeRight, finishSwipe })(Quiz));
+}))(connect(null, { swipeLeft, swipeRight, finishSwipe, completeQuiz })(Quiz));

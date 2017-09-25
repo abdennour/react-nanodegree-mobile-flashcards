@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import { Constants } from 'expo';
@@ -13,6 +13,7 @@ import QuizResult from './src/components/QuizResult';
 import DeckScore from './src/components/DeckScore';
 import { primaryColor } from './src/utils/colors';
 import { SCREENS } from './src/utils/enums';
+import { setLocalNotification } from './src/utils/helpers';
 
 const MainNavigator = StackNavigator({
   [SCREENS.HOME]: {
@@ -38,19 +39,15 @@ const MainNavigator = StackNavigator({
   }
 });
 
-function AppStatusBar({ backgroundColor, ...props }) {
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  );
-}
-
 class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <View style={{ flex: 1 }}>
           <AppStatusBar
             backgroundColor={primaryColor}
             barStyle="light-content"
@@ -62,9 +59,11 @@ class App extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
+function AppStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  );
+}
 export default App;
