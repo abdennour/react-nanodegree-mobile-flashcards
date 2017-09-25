@@ -1,5 +1,5 @@
 import { Dimensions, AsyncStorage } from 'react-native';
-import { Notifications, Permissions } from 'expo';
+import { Notifications, Permissions, Constants } from 'expo';
 import { CONSTANTS } from './enums';
 
 export function getDailyReminderValue() {
@@ -78,14 +78,16 @@ export async function setLocalNotification(
   try {
     let data = await AsyncStorage.getItem(CONSTANTS.NOTIFICATION_KEY);
     data = JSON.parse(data);
+
     if (data === null) {
       try {
         const { status } = await Permissions.askAsync(
           Permissions.NOTIFICATIONS
         );
+
         if (status === 'granted') {
           Notifications.cancelAllScheduledNotificationsAsync();
-          Notifications.scheduleLocalNotificationsAsync(createNotification(), {
+          Notifications.scheduleLocalNotificationAsync(createNotification(), {
             time: tomorrowNotificationTime(),
             repeat: 'day'
           });
@@ -93,6 +95,12 @@ export async function setLocalNotification(
           AsyncStorage.setItem(
             CONSTANTS.NOTIFICATION_KEY,
             JSON.stringify(true)
+          );
+        } else {
+          reject('We dont have the right to run push notifications');
+          reject(
+            !Constants.isDevice &&
+              'Please run this app on real devices instead of simulators'
           );
         }
       } catch (errorPermissionNotification) {
@@ -103,29 +111,3 @@ export async function setLocalNotification(
     reject('AsyncStorage issue: ', e);
   }
 }
-
-// export function setLocalNotification() {
-//   AsyncStorage.getItem(CONSTANTS.NOTIFICATION_KEY)
-//     .then(JSON.parse)
-//     .then(data => {
-//       if (data === null) {
-//         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-//           if (status === 'granted') {
-//             Notifications.cancelAllScheduledNotificationsAsync();
-//             Notifications.scheduleLocalNotificationsAsync(
-//               createNotification(),
-//               {
-//                 time: tomorrowNotificationTime(),
-//                 repeat: 'day'
-//               }
-//             );
-//
-//             AsyncStorage.setItem(
-//               CONSTANTS.NOTIFICATION_KEY,
-//               JSON.stringify(true)
-//             );
-//           }
-//         });
-//       }
-//     });
-// }
