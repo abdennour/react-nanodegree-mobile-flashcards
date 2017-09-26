@@ -4967,9 +4967,9 @@ react-native-vector-icons@4.1.1:
     prop-types "^15.5.8"
     yargs "^6.3.0"
 
-react-native-xswiper@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-xswiper/-/react-native-xswiper-0.0.3.tgz#0512df6099ab24f6741ce2f9be134e08d7f39bda"
+react-native-xswiper@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-xswiper/-/react-native-xswiper-0.0.4.tgz#4edf80d77951c546112ce5271c9d224401579f66"
 
 react-native@^0.47.0:
   version "0.47.2"

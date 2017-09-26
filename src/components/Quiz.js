@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
-import Swiper from './Swiper'; // from 'react-native-xswiper';
+import Swiper from 'react-native-xswiper';
 import Card from './Card';
 import QuizNotes from './QuizNotes';
 import { neutreLightColor } from '../utils/colors';
