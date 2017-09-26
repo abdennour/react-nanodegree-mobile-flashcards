@@ -104,6 +104,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavOptions(({ navigation }) => ({
-  headerTitle: `Quiz on ${navigation.state.params.deck}`
-}))(connect(null, { swipeLeft, swipeRight, finishSwipe, completeQuiz })(Quiz));
+export default withNavOptions({ headerTitle: 'Quiz' })(
+  connect(null, { swipeLeft, swipeRight, finishSwipe, completeQuiz })(Quiz)
+);
