@@ -27,13 +27,16 @@ class QuizResult extends Component {
     return calculateScore(this.props.corrects, this.props.incorrects);
   }
 
-  scoreFormatter = score =>
-    score === this.score && parseInt(score, 10) === parseFloat(score)
-      ? this.score
-      : parseFloat(score).toFixed(2);
+  scoreFormatter = score => {
+    const percent =
+      score === this.score && parseInt(score, 10) === parseFloat(score)
+        ? this.score
+        : parseFloat(score).toFixed(2);
+    return `${percent} %`;
+  };
 
   renderBody() {
-    const { corrects, incorrects } = this.props;
+    const { corrects, incorrects, deck, navigation } = this.props;
     return (
       <View style={styles.container}>
         <View style={{ flex: 2, justifyContent: 'center' }}>
@@ -43,18 +46,30 @@ class QuizResult extends Component {
             }}
             h1
           >
-            <AnimateNumber
-              value={this.score}
-              formatter={this.scoreFormatter}
-            />{' '}
-            %
+            <AnimateNumber value={this.score} formatter={this.scoreFormatter} />
           </Text>
         </View>
         <StartQuizButton
           title="Restart quiz"
-          deck={this.props.deck}
-          navigate={this.props.navigation.navigate}
+          deck={deck}
+          navigate={navigation.navigate}
         />
+        <View style={{ flex: 2, justifyContent: 'flex-end' }}>
+          <Button
+            onPress={() => navigation.navigate(SCREENS.DECK_BOARD, { deck })}
+            backgroundColor={lightColor}
+            color={primaryColor}
+            containerViewStyle={{
+              marginBottom: Platform.OS === 'ios' ? 20 : 0
+            }}
+            title={`${deck.toUpperCase()} DECK`}
+            icon={{
+              type: 'ionicon',
+              name: Platform.OS === 'ios' ? 'ios-home' : 'md-home',
+              color: primaryColor
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -162,22 +177,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapNavOptions({ navigation: { navigate, state: { params } } }) {
   return {
-    headerTitle: params.deck,
-    headerLeft: null,
-    headerRight: (
-      <Button
-        onPress={() => navigate(SCREENS.DECK_BOARD, { deck: params.deck })}
-        backgroundColor={lightColor}
-        color={primaryColor}
-        containerViewStyle={{ marginBottom: Platform.OS === 'ios' ? 20 : 0 }}
-        title={params.deck.toUpperCase()}
-        icon={{
-          type: 'ionicon',
-          name: Platform.OS === 'ios' ? 'ios-home' : 'md-home',
-          color: primaryColor
-        }}
-      />
-    )
+    headerTitle: 'Results',
+    headerLeft: null
   };
 }
 
