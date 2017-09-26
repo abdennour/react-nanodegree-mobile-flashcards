@@ -6,9 +6,10 @@ import { List, ListItem } from 'react-native-elements';
 import { primaryColor, lightColor, neutreDarkColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 /**
- * All commented code is keeped here for reason .
- * Indeed, We worked with ListView . Then, a big issue appeared because of Expo client RN incompatiblity .
- * For more info :Check please
+ * 🔴 All commented code is keeped here for reason .
+ * Indeed, We worked with ListView .
+ * Then, a big issue appeared because of Expo client RN incompatiblity .
+ * For more info :Check please https://github.com/facebook/react-native/issues/15875
  * @type {Object}
  */
 class DecksList extends Component {
