@@ -5,7 +5,7 @@ import { getWidth, getHeight } from '../utils/helpers';
 import { primaryColor } from '../utils/colors';
 import { SCREENS } from '../utils/enums';
 
-function AddDeckButton() {
+function AddDeckButton({ navigate }) {
   return (
     <View
       style={[
@@ -19,7 +19,7 @@ function AddDeckButton() {
         type="entypo"
         color={primaryColor}
         containerStyle={{ borderRadius: Platform.OS === 'ios' ? 4 : 26 }}
-        onPress={() => this.props.navigate(SCREENS.DECK_NEW)}
+        onPress={() => navigate(SCREENS.DECK_NEW)}
       />
     </View>
   );
