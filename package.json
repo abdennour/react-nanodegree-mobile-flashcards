@@ -38,5 +38,11 @@
     "redux": "^3.7.2",
     "redux-form": "^7.0.4",
     "redux-persist": "^4.10.0"
-  }
+  },
+  "author": {
+    "name": "Abdennour TOUMI",
+    "email": "mail@abdennoor.com",
+    "url": "http://abdennoor.com"
+  },
+  "license": "GPL-3.0"
 }
