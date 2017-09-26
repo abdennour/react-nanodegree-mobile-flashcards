@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
+
 import { Icon, Text } from 'react-native-elements';
 import { SCREENS } from '../utils/enums';
 import { primaryColor } from '../utils/colors';
@@ -11,15 +12,17 @@ function StartQuizButton({ deck, questions, navigate, containerStyle, title }) {
       <Text style={styles.text}>
         {title}
       </Text>
-      <Icon
-        type="ionicon"
-        size={50}
-        name={Platform.OS === 'ios' ? 'ios-play' : 'md-play'}
-        color={primaryColor}
-        containerStyle={styles.iconContainer}
-        onPress={() => navigate(SCREENS.QUIZ, { deck, questions })}
-        raised
-      />
+      <TouchableOpacity>
+        <Icon
+          type="ionicon"
+          size={50}
+          name={Platform.OS === 'ios' ? 'ios-play' : 'md-play'}
+          color={primaryColor}
+          containerStyle={styles.iconContainer}
+          onPress={() => navigate(SCREENS.QUIZ, { deck, questions })}
+          raised
+        />
+      </TouchableOpacity>
     </View>
   );
 }
